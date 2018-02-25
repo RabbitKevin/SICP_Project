@@ -2,7 +2,6 @@
 
 from dice import four_sided, six_sided, make_test_dice
 from ucb import main, trace, log_current_line, interact
-
 GOAL_SCORE = 100 # The goal of Hog is to score 100 points.
 
 ######################
@@ -22,6 +21,16 @@ def roll_dice(num_rolls, dice=six_sided):
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     "*** YOUR CODE HERE ***"
+    is_one = False
+    sum = 0
+    for rollIndex in range(num_rolls):
+            diceVal = dice()
+            if diceVal == 1:
+                is_one = True
+            else:
+                sum+=diceVal
+    return 1 if is_one else sum
+    
 
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
