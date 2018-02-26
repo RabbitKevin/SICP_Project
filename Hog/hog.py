@@ -45,6 +45,15 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     "*** YOUR CODE HERE ***"
+    def largest_digit(score):
+        return score if score < 10 else max(score//10, score%10)
+    def free_bacon(score):
+        return largest_digit(score)+1
+    if num_rolls == 0:
+        return free_bacon(opponent_score)
+    else:
+        return roll_dice(num_rolls, dice)
+
 
 # Playing a game
 
