@@ -69,6 +69,7 @@ def select_dice(score, opponent_score):
     True
     """
     "*** YOUR CODE HERE ***"
+    return four_sided if (score+opponent_score)%7 == 0 else six_sided
 
 def other(who):
     """Return the other player, for a player WHO numbered 0 or 1.
@@ -94,6 +95,23 @@ def play(strategy0, strategy1, goal=GOAL_SCORE):
     who = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     score, opponent_score = 0, 0
     "*** YOUR CODE HERE ***"
+    players = [score, opponent_score]
+    strategies = [strategy0, strategy1]
+    currentIndex = 0
+    while players[0] < goal and players[1] < goal:#Reach 100 means not >= 100
+        currentPlayer = players[currentIndex]
+        currentOpponent = players[currentIndex^1]
+        roll_num = strategies[currentIndex](currentPlayer, currentOpponent)
+        dice = select_dice(currentPlayer, currentOpponent)
+        currentPlayer+=take_turn(roll_num, currentOpponent, dice)
+        players[currentIndex] = currentPlayer
+        if currentPlayer == currentOpponent/2 or currentPlayer/2 == currentOpponent:
+            players[currentIndex^1] = currentPlayer
+            players[currentIndex] = currentOpponent
+        currentIndex = currentIndex^1
+    score = players[0]
+    opponent_score = players[1]
+    #print(players)
     return score, opponent_score  # You may wish to change this line.
 
 #######################
